@@ -9,9 +9,7 @@ Search keywords within the extracted text.
 Deployment
 To deploy on platforms like Hugging Face Spaces or Streamlit Cloud:
 
-Create an account on Streamlit.
-Link your GitHub repository.
-Deploy the application.
+
 Files in the Project
 app.py: The main application script.
 requirements.txt: Python libraries for the project.

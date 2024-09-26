@@ -1,17 +1,15 @@
 import gradio as gr
-import torch
-from transformers import TrOCRProcessor, VisionEncoderDecoderModel
+import pytesseract
+from PIL import Image
 
-# Load the OCR model and processor
-processor = TrOCRProcessor.from_pretrained("microsoft/trocr-base-printed")
-model = VisionEncoderDecoderModel.from_pretrained("microsoft/trocr-base-printed")
+# Set the Tesseract executable path for Windows
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
-# Function to perform OCR
+# Function to perform OCR using Tesseract
 def perform_ocr(image):
-    pixel_values = processor(images=image, return_tensors="pt").pixel_values
-    with torch.no_grad():
-        output = model.generate(pixel_values)
-    return processor.decode(output[0], skip_special_tokens=True)
+    # Convert image to text using Tesseract
+    text = pytesseract.image_to_string(image, lang='eng+hin')  # For English and Hindi
+    return text
 
 # Function to perform keyword search in the extracted text
 def search_keyword(text, keyword):
